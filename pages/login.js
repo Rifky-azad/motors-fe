@@ -75,7 +75,7 @@ export default function SignIn() {
                         "password": values.password,
                     }).then((res) => {
                         console.log('data', res.data)
-                        cookie.set("tokan", res.data.jwt)
+                        cookie.set("token", res.data.jwt)
                         router.push("/")
                         setError(null)
                     }).catch((err) => {
