@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CustomerList({ customers, getAllCustomers }) {
+function VehicleList({ vehicle = [], getAllVehicle }) {
   const classes = useStyles();
   const [id, setId] = useState(null);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
@@ -40,31 +40,20 @@ function CustomerList({ customers, getAllCustomers }) {
         },
       })
       .then(() => {
-        getAllCustomers();
-      }).catch((err)=>{
-        console.error(err)
+        getAllVehicle();
+      })
+      .catch((err) => {
+        console.error(err);
       });
   };
 
   const columns = [
-    "Customer Name",
-    "email",
-    {
-      name: "Status",
-      options: {
-        setCellHeaderProps: () => ({
-          style: { display: "flex", justifyContent: "center" },
-        }),
-        customBodyRender: (value, tableMeta, updatedValue) => {
-          return (
-            <div className={`${classes.status} ${value ? classes.pendingStatus : classes.completedStatus}`}>
-              {" "}
-              {value ? "Blocked" : "Active"}{" "}
-            </div>
-          );
-        },
-      },
-    },
+    "Vehicle Number",
+    "customer",
+    "Model",
+    "Type",
+    "Milage",
+    "service note",
     {
       name: "Action",
       options: {
@@ -86,7 +75,7 @@ function CustomerList({ customers, getAllCustomers }) {
               <IconButton
                 color="primary"
                 onClick={() => {
-                  setId(value)
+                  setId(value);
                   setIsOpenDialog(true);
                 }}
               >
@@ -117,9 +106,9 @@ function CustomerList({ customers, getAllCustomers }) {
   return (
     <>
       <DeleteDialog outSideFunction={deleteFunction} closeDialog={() => setIsOpenDialog(false)} open={isOpenDialog} />
-      <MUITable title="List of all Customer" columns={columns} options={options} data={customers} className="card" />
+      <MUITable title="List of all Vehicle" columns={columns} options={options} data={vehicle} className="card" />
     </>
   );
 }
 
-export default CustomerList;
+export default VehicleList;
